@@ -28,13 +28,13 @@ router.post("/", (req, res, next) => {
     console.log(user)
 
     user.save().then(result => {
-        print(result)
+        console.log(result)
     }).catch(err => console.log("error:" + err))
 
 
     res.status(200).json({
         message: "handling get request from user",
-        userinfo: userData
+        userInfo: user
     })
 })
 
