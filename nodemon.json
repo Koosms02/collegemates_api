@@ -1,9 +1,0 @@
-{
-    "env": {
-        "MANGO_ATLAS_PW": "JTUKWOAer3lfVgai",
-        "TWILIO_ACCOUNT_SID": "AC731d4f99ffb883ad58dc4d52cb50ea25",
-        "TWILIO_AUTH_TOKEN" : "ef46a99c9c973b856d82063cb38ce6ea",
-        "TWILIO_PHONE_NUMBER": "+18023210480",
-        "TWILIO_USERNAME":"Koos Mogafe"
-    }
-}
