@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     university: String,
     course: String,
     residence: String,
-    location: Geolocation,
+    location: Map,
     verified: String,
     Photos: Array,
     interest: Array,
