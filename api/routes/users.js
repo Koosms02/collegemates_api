@@ -1,11 +1,14 @@
 const express = require("express")
 const router = express.Router();
 
+const User = require("../models/user")
 //getting all the user from database
 router.get("/", (req, res, next) => {
-    res.status(200).json({
-        message: "handling get request from user"
-    })
+
+    User.find()
+        .then(results => res.status(200).json({ "message": results }))
+        .catch(err => res.status(500).json({ "error": err }))
+
 })
 
 //when a user creates an account
@@ -35,17 +38,5 @@ router.patch("/:userId", (req, res, next) => {
         id: id,
     })
 })
-
-
-router.delete("/:userId", (req, res, next) => {
-    const id = req.params.userId
-    res.status(200).json({
-        message: "When user delete their profiles",
-        id: id,
-    });
-});
-
-
-
 
 module.exports = router
