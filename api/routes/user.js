@@ -19,11 +19,9 @@ router.get("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
 
-
-
     const user = new User({
-        // _id: new mongoose.Types.ObjectId(),
-        _id: req.body.id,
+        _id: new mongoose.Types.ObjectId(),
+        // _id: req.body.id,
         name: req.body.name,
         age: req.body.age,
         name: req.body.name,
@@ -51,14 +49,9 @@ router.post("/", (req, res, next) => {
     // console.log(user)
 
     user.save().then(result => {
-        console.log(result)
+        res.status(200).json({ "message": "data_saved" })
     }).catch(err => res.status(500).json({ "error": err }))
 
-
-    // res.status(200).json({
-    //     message: "handling get request from user",
-    //     // userInfo: user
-    // })
 })
 
 module.exports = router
