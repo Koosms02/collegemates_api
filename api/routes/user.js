@@ -54,4 +54,22 @@ router.post("/", (req, res, next) => {
 
 })
 
+
+//delete users
+router.delete('/:userid', (req, res, next) => {
+    console.log(req.params.userid)
+
+    User.findByIdAndDelete({ "_id": req.params.userid })
+        .then((results) => {
+            console.log(results)
+            res.status(200).json({ "message": "delete successfull" })
+        })
+        .catch((err) => { res.status(500).json({ "error": err }) })
+    // user.delete
+})
+
+//update the user
+
+
+
 module.exports = router
