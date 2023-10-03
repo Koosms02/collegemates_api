@@ -6,6 +6,7 @@ const User = require("../models/user")
 router.get("/", (req, res, next) => {
 
     User.find()
+        .sort({ elo: -1 })
         .then(results => res.status(200).json({ "message": results }))
         .catch(err => res.status(500).json({ "error": err }))
 
