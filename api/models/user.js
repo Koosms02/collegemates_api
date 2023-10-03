@@ -24,6 +24,7 @@ const userSchema = mongoose.Schema({
     disLikedIds: Array,
     likedByIds: Array,
     locality: String,
+    elo: String
 })
 
 module.exports = mongoose.model('User', userSchema)
