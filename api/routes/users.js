@@ -4,8 +4,13 @@ const router = express.Router();
 const User = require("../models/user")
 //getting all the user from database
 router.get("/", (req, res, next) => {
-
-    User.find()
+    /**
+     * 
+     * request must container gender preference , agerange preference 
+     */
+    User.find({
+        $and: [{ "gender": "Female" }, { "age": { $lte: 20, $gte: 18 } }]
+    })
         .sort({ elo: -1 })
         .then(results => res.status(200).json({ "message": results }))
         .catch(err => res.status(500).json({ "error": err }))
