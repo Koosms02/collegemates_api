@@ -80,6 +80,33 @@ router.delete('/:userid', (req, res, next) => {
 
 //update the user
 
+router.patch("/:userId", (req, res, next) => {
+
+    const id = req.params.userId
+
+    const operation = req.body.operation
+    /**
+     * req should contain the purpose of calling this end point
+     * "updating the likedById"
+     * "updating my profile"
+     * ""
+     * 
+     */
+
+    if (operation == "updateLikedById") {
+        User.findByIdAndUpdate({ "_id": id }, { $addToSet: { "likedByIds": ["_"] } }, { new: true })
+            .then((result) => { res.status(200).json({ "results": result }) })
+            .catch((error) => res.status(500).json({ "error": error }))
+    } else {
+        res.status(200).json({
+            message: "User updating their profiles",
+            id: id,
+        })
+
+    }
+})
+
+
 
 
 module.exports = router

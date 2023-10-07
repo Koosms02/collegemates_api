@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router();
 
 const User = require("../models/user")
+const fetchUser = require("../user_cases/fetchuser")
 //getting all the user from database
 router.get("/", (req, res, next) => {
 
@@ -17,28 +18,8 @@ router.get("/", (req, res, next) => {
      * 
      */
 
-
-    User.find({
-        $and: [
-            {
-                "disLikedIds": {
-                    $not: {
-                        $in: [currentUserId]
-                    }
-                }
-            },
-            {
-                "likedByIds": {
-                    $not: {
-                        $in: [currentUserId]
-                    }
-                }
-            },
-            { "gender": "Female" }, { "age": { $lte: 20, $gte: 18 } }]
-    })
-        .sort({ elo: -1 })
-        .then(results => res.status(200).json({ "message": results }))
-        .catch(err => res.status(500).json({ "error": err }))
+    //call the function for fetching users
+    fetchUser.fetchUsers(User, currentUserId, res, req)
 
 })
 
@@ -63,11 +44,30 @@ router.post("/:userId", (req, res, next) => {
 //when a user update the information
 
 router.patch("/:userId", (req, res, next) => {
+
     const id = req.params.userId
-    res.status(200).json({
-        message: "User updating their profiles",
-        id: id,
-    })
+
+    const operation = req.body.operation
+    /**
+     * req should contain the purpose of calling this end point
+     * "updating the likedById"
+     * "updating my profile"
+     * ""
+     * 
+     */
+
+    if (operation == "updateLikedById") {
+        User.findById({ "_id": id })
+    } else {
+        res.status(200).json({
+            message: "User updating their profiles",
+            id: id,
+        })
+
+    }
 })
+
+
+
 
 module.exports = router
