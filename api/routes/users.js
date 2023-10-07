@@ -4,12 +4,37 @@ const router = express.Router();
 const User = require("../models/user")
 //getting all the user from database
 router.get("/", (req, res, next) => {
-    /**
+
+    const currentUserId = req.body.id
+    /** 
+     * request must container gender preference , agerange preference , current user id
      * 
-     * request must container gender preference , agerange preference 
+     * how the fetch algorithm work 
+     * 
+     * fetch all the user where the current userId is not in likedByIds and disLikedIds
+     * disLikedIds initially containers its own id.
+     * 
+     * 
      */
+
+
     User.find({
-        $and: [{ "gender": "Female" }, { "age": { $lte: 20, $gte: 18 } }]
+        $and: [
+            {
+                "disLikedIds": {
+                    $not: {
+                        $in: [currentUserId]
+                    }
+                }
+            },
+            {
+                "likedByIds": {
+                    $not: {
+                        $in: [currentUserId]
+                    }
+                }
+            },
+            { "gender": "Female" }, { "age": { $lte: 20, $gte: 18 } }]
     })
         .sort({ elo: -1 })
         .then(results => res.status(200).json({ "message": results }))
