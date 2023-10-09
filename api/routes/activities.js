@@ -50,5 +50,14 @@ router.get("/", (req, res, next) => {
 })
 
 
+router.delete("/:activityId", (req, res, next) => {
+    const activityId = req.params.activityId
+
+    Activity.deleteOne({ "_id": activityId })
+        .then((snapshot) => res.status(200).json({ "snap": snapshot }))
+        .catch((error) => res.status(500).json({ "error message": error.message }))
+})
+
+
 
 module.exports = router
