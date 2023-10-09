@@ -2,10 +2,12 @@
 const mongoose = require("mongoose")
 
 
-const userSchema = mongose.Schema({
+const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    location: Location,
+    location: String,
     userId: String,
+    name: String,
+    age: String,
     time: String,
     event: String
 })
